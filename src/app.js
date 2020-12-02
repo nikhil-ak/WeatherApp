@@ -3,6 +3,8 @@ const hbs = require('hbs')
 const path = require('path')
 const app = express()
 const weather = require('./weather')
+
+const port = process.env.PORT || 3000
 // dir for static file, dynamic files  and partials
 const htmlDirectory = path.join(__dirname, '../public');
 const dynamicDir = path.join(__dirname, '../templates/views');
@@ -78,6 +80,6 @@ app.get('*', (req,res) => {
     });
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("server running");
 })
