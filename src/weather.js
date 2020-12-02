@@ -14,7 +14,7 @@ const forecast = (obj, callback) => {
                  region: body.location.region,
                    country: body.location.country,
                      weatherSummary: body.current.weather_descriptions[0],
-                      temoerature: body.current.temperature,
+                      temperature: body.current.temperature,
                        apparentTemperature: body.current.feelslike});
         }
         

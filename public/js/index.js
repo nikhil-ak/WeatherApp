@@ -5,7 +5,7 @@ const getWeather = ()=> {
     fetch(`/weather?address=${searchTxt}`)
     .then(res => res.json())
     .then(data =>  {if(data.name) {
-        details.textContent = data.name}
+        details.textContent = data.name + data.region + data.country + data.temperature  + data.weatherSummary + data.apparentTemperature}
     else {
         details.textContent = data.error;
     }})
