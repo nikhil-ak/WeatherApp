@@ -45,25 +45,34 @@ app.get('/help',(req,res) => {
 })
 
 app.get('/weather', (req,res) => {
-    if(!req.query.address) {
+    if(!req.query.address && !req.query.latitude) {
         return res.send({
             error: "Please provide the address"
         })
     }
-    const address = req.query.address;
-    weather.geocode(address, (locationRes)=> {
-        if(typeof(locationRes) === 'object') {
-            weather.forecast(locationRes, (forecastRes) => {
-                res.send(forecastRes);
+    if(req.query.address) {
+        const address = req.query.address;
+        weather.geocode(address, (locationRes)=> {
+            if(typeof(locationRes) === 'object') {
+                weather.forecast(locationRes, (forecastRes) => {
+                    res.send(forecastRes);
+                    })
+            }
+            else{
+                res.send({
+                    error: locationRes
                 })
-        }
-        else{
-            res.send({
-                error: locationRes
-            })
-        }
-        
-    })
+            }
+            
+        })
+    }
+    if(req.query.latitude) {
+        const locationRes = {latitude: req.query.latitude, longitude: req.query.longitude}
+        weather.forecast(locationRes, (forecastRes) => {
+            res.send(forecastRes)
+        })
+    }
+
 })
 
 app.get('/help/*', (req,res) => {
